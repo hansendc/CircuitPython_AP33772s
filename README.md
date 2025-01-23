@@ -17,7 +17,7 @@ I bought mine from [CentyLab](https://www.tindie.com/stores/centylab/).
  3. Install CircuitPython on your board.  [This image](https://circuitpython.org/board/raspberry_pi_pico/) works on the PicoPD Pro.
  4. Install the adafruit_bus_device and adafruit_register libaries in CIRCUITPY/lib/ [download here](https://circuitpython.org/libraries)
  5. Install AP33772s.py from this repo in CIRCUITPY/lib/
- 6. Copy test_AP33772s.py over to CIRCUITPY/code.py
+ 6. Copy example.py over to CIRCUITPY/code.py
 
 ## Links
  * [Pico PD Pro](https://github.com/CentyLab/PicoPD_Pro) - Basically a Raspberry Pi Pico board with the AP33772s built in
