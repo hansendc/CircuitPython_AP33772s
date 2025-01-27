@@ -102,6 +102,28 @@ class AP37772s:
 
         return vmin[twobits]
 
+    # The PicoPD voltage regulator handles a max of 30v.
+    # Avoid exceeding that limit by enforcing it in
+    # software.
+    def _limit_pdo_voltage(self, pdo):
+        VOLTAGE_LIMIT=30.0
+
+        if pdo['max_voltage'] <= VOLTAGE_LIMIT:
+	        return
+
+        # Limit the max voltage of AVS sources:
+        if ( pdo['type'] == 'variable' and
+             pdo['min_voltage'] < VOLTAGE_LIMIT ):
+            pdo['max_voltage'] = VOLTAGE_LIMIT;
+            return
+
+        # Neuter the PDO in as many ways as possible.
+        # 'detected' should be sufficient by itself.
+        pdo['detected'] = False
+        pdo['max_voltage'] = 0
+        pdo['pdo_nr'] = 0
+
+
     def _pdo_parse(self, pdo_nr, pdo_dword):
         pdo = {}
         pdo['raw'] = "0x%x" % pdo_dword 
@@ -136,6 +158,8 @@ class AP37772s:
         else:
             pdo['max_current'] = 1.25 + 0.25 * _current
             pdo['moarcurrent'] = False
+
+        self._limit_pdo_voltage(pdo)
 
         return pdo
 
