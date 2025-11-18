@@ -26,7 +26,7 @@ def same_voltage(v1, v2, vunits):
     # point borkage
     return abs(v1 - v2) <= 1
 
-class AP37772s:
+class AP33772s:
     # Status bits are cleared after read. Don't define individual
     # "ROBit"s. Declare a whole byte that is read in its entirety
     # once.
